@@ -4,20 +4,29 @@
   "description": "AI-Driven Web3 Tank Battle Game on Sui",
   "scripts": {
     "install:all": "npm install && cd frontend && npm install && cd ../move_contracts && sui move build",
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:oracle\"",
     "dev:frontend": "cd frontend && npm run dev",
-    "dev:backend": "cd move_contracts && sui client envs",
+    "dev:oracle": "ts-node scripts/oracle/result-submitter.ts",
     "build:all": "npm run build:frontend && npm run build:contracts",
     "build:frontend": "cd frontend && npm run build",
     "build:contracts": "cd move_contracts && sui move build",
     "test:all": "npm run test:frontend && npm run test:contracts",
     "test:frontend": "cd frontend && npm test",
     "test:contracts": "cd move_contracts && sui move test",
-    "deploy:testnet": "node scripts/deploy-testnet.js",
+    "deploy:testnet": "ts-node scripts/deployment/deploy-contracts.ts",
+    "start:oracle": "ts-node scripts/oracle/result-submitter.ts",
     "ai:review": "node scripts/ai-review.js"
   },
+  "dependencies": {
+    "@mysten/sui.js": "^0.54.0",
+    "ws": "^8.14.0"
+  },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0",
+    "@types/ws": "^8.5.0",
+    "@types/node": "^20.0.0"
   },
   "workspaces": ["frontend", "move_contracts"]
 }
