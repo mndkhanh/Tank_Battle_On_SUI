@@ -1,9 +1,9 @@
-# Tank Battle on Sui - AI-Driven Lifecycle (AI-DLC) Project
+# Tank Battle on Sui - A 2D Game on Sui Blockchain
 
 ## 🎮 Project Overview
-Web3 tank battle game built on Sui blockchain with AI-coordinated development workflow.
+Web3 tank battle game built on Sui blockchain.
 
-## 🤖 AI Team Structure
+## 🤖 Developement Content
 - **MoveArchitect**: Move smart contract scaffolding and security audits
 - **SDKIntegrator**: Backend SDK scripts and blockchain integration
 - **UIBuilder**: Frontend React components and game UI
