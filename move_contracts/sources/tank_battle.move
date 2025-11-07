@@ -29,10 +29,8 @@ module tank_battle::game {
         }
     }
 
-    public fun move_tank(tank: &mut Tank, x: u64, y: u64) {
-        tank.position_x = x;
-        tank.position_y = y;
-    }
+    // ❌ REMOVED: move_tank() - Real-time movement handled in Phaser.js
+    // Tank position only matters for final stats after battle
 
     public fun mint_tank(ctx: &mut TxContext) {
         let tank = create_tank(ctx);

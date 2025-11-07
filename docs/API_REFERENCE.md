@@ -13,17 +13,17 @@ public fun mint_tank(ctx: &mut TxContext)
 - **Returns:** Tank object được transfer cho sender
 - **Gas:** ~1,000,000 MIST
 
-#### **move_tank()**
+#### **~~move_tank()~~** ❌ DEPRECATED
 ```move
-public fun move_tank(tank: &mut Tank, x: u64, y: u64)
+// ❌ KHÔNG DÙNG: Movement được xử lý trong Phaser.js
+// ✅ CHỈ LƯU: Final tank stats sau battle
 ```
-- **Mục đích:** Di chuyển tank đến vị trí mới
-- **Parameters:** Tank reference, tọa độ x, y
-- **Usage:** Game engine gọi khi player di chuyển
+- **Lý do:** Real-time movement trong game engine (off-chain)
+- **Thay thế:** Tank stats chỉ update sau khi kết thúc battle
 
 ---
 
-### **Battle Module (`tank_battle::battle`)**
+### **Battle Module (`tank_battle::battle`)** - Settlement Only
 
 #### **create_battle()**
 ```move
@@ -32,47 +32,40 @@ public fun create_battle(
     player2: address, 
     tank1_id: address,
     tank2_id: address,
-    prize_pool: u64,
+    entry_fee: Coin<TANK_TOKEN>,
     clock: &Clock,
     ctx: &mut TxContext
 )
 ```
-- **Mục đích:** Tạo trận đấu PvP mới
-- **Parameters:** 2 players, tank IDs, prize pool, clock
+- **Mục đích:** Tạo battle contract và escrow entry fees
+- **Parameters:** 2 players, tank IDs, entry fee coins
 - **Returns:** Battle object (shared)
-- **Events:** BattleCreated
+- **Logic:** Lock entry fees, chờ Oracle kết quả
 
-#### **submit_action()**
-```move
-public fun submit_action(
-    battle: &Battle,
-    action_type: u8,
-    position_x: u64,
-    position_y: u64, 
-    target_x: u64,
-    target_y: u64,
-    clock: &Clock,
-    ctx: &TxContext
-)
+#### **~~submit_action()~~** ❌ REMOVED
 ```
-- **Mục đích:** Submit hành động trong battle
-- **Action Types:** 0=move, 1=shoot, 2=special
-- **Events:** BattleAction
-- **Validation:** Player phải là participant
+❌ KHÔNG CẦN: Real-time actions được xử lý off-chain
+✅ THAY BẰNG: Oracle validation + finish_battle()
+```
+- **Lý do:** Game actions xử lý trong Phaser.js (off-chain)
+- **Thay thế:** Oracle aggregate actions → call finish_battle()
 
-#### **finish_battle()**
+#### **finish_battle()** - Oracle Only
 ```move
 public fun finish_battle(
     battle: &mut Battle,
+    oracle_cap: &OracleCap,
     winner: address,
-    damage_dealt: u64,
-    clock: &Clock
+    total_damage: u64,
+    battle_duration: u64,
+    clock: &Clock,
+    ctx: &mut TxContext
 )
 ```
-- **Mục đích:** Kết thúc battle và xác định winner
-- **Authority:** Chỉ Oracle có thể gọi
-- **Events:** BattleResult
-- **Side Effects:** Update player stats
+- **Mục đích:** Settlement battle results và distribute rewards
+- **Authority:** Chỉ Oracle (có OracleCap) có thể gọi
+- **Logic:** Transfer prize pool đến winner, update stats
+- **Events:** BattleResult, RewardDistributed
 
 ---
 
@@ -167,20 +160,17 @@ async createBattle(
 - **Mục đích:** Tạo battle transaction
 - **Authority:** Matchmaking system
 
-#### **submitBattleAction()**
+#### **~~submitBattleAction()~~** ❌ REMOVED
 ```typescript
-async submitBattleAction(
-    battleId: string,
-    actionType: number,
-    positionX: number,
-    positionY: number,
-    targetX: number,
-    targetY: number
-): Promise<TransactionBlock>
+// ❌ KHÔNG CẦN: Actions được gửi qua WebSocket đến Oracle
+// ✅ THAY BẰNG: WebSocket communication
+ws.send(JSON.stringify({
+  type: 'BATTLE_ACTION',
+  data: { battleId, actionType, positionX, positionY }
+}))
 ```
-- **Mục đích:** Submit game action lên blockchain
-- **Real-time:** Gọi từ Phaser game engine
-- **Validation:** Oracle sẽ validate sau
+- **Lý do:** Real-time actions không cần blockchain
+- **Thay thế:** WebSocket → Oracle → finish_battle()
 
 #### **getBattleHistory()**
 ```typescript
@@ -323,18 +313,10 @@ public struct BattleResult has copy, drop {
 }
 ```
 
-### **BattleAction Event**
+### **~~BattleAction Event~~** ❌ REMOVED
 ```move
-public struct BattleAction has copy, drop {
-    battle_id: address,
-    player: address,
-    action_type: u8,
-    position_x: u64,
-    position_y: u64,
-    target_x: u64,
-    target_y: u64,
-    timestamp: u64,
-}
+// ❌ KHÔNG CẦN: Real-time actions không emit events
+// ✅ THAY BẰNG: WebSocket messages đến Oracle
 ```
 
 ---

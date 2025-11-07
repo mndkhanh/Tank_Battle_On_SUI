@@ -9,3 +9,13 @@ Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-fram
 [addresses]
 tank_battle = "0x0"
 sui = "0x2"
+
+# Modules:
+# - tank_battle::game (core tank NFTs)
+# - tank_battle::token (TANK_TOKEN currency)
+# - tank_battle::battle (PvP settlement)
+# - tank_battle::treasury (staking & rewards)
+# - tank_battle::arena (arena management)
+# - tank_battle::game_state (player stats)
+# - tank_battle::leaderboard (rankings)
+# - tank_battle::matchmaking (auto-matching)
