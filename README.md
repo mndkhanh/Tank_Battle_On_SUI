@@ -1,36 +1,36 @@
-# Tank Battle on Sui - A 2D Game on Sui Blockchain
+# Tank Battle on Sui - Core Game
 
-## 🎮 Project Overview
-Web3 tank battle game built on Sui blockchain.
+## 🎮 Features
+- **Tank NFT**: Mint free tanks with random stats
+- **Gun NFT**: Gacha system (100 TANK tokens)
+- **Marketplace**: Buy/sell NFTs with 5% fee
+- **TANK Token**: Game currency
 
-## 🤖 Developement Content
-- **MoveArchitect**: Move smart contract scaffolding and security audits
-- **SDKIntegrator**: Backend SDK scripts and blockchain integration
-- **UIBuilder**: Frontend React components and game UI
-- **WalletConnectBot**: Wallet integration and transaction flows
-- **QA-Tester**: Automated testing for Move contracts and React components
-- **CI/CD-Manager**: Build pipelines and deployment automation
-
-## 👥 Development Team
-- **Frontend Dev**: React, Phaser.js, Wallet integration (`dev/frontend` branch)
-- **Backend Dev**: Move contracts, SDK scripts (`dev/backend` branch)
-
-## 📁 Repository Structure
+## 📁 Structure
 ```
 Tank_Battle_On_SUI/
-├── frontend/                 # React + Phaser game client
-├── move_contracts/          # Sui Move smart contracts
-├── .github/workflows/       # CI/CD pipelines
-├── .amazonq/               # AI agent configurations
-├── docs/                   # Project documentation
-└── scripts/                # Development utilities
+├── move_contracts/
+│   └── sources/
+│       ├── tank_battle.move    # Tank & Gun NFTs
+│       ├── market.move         # NFT Marketplace
+│       └── token.move          # TANK_TOKEN
+├── scripts/
+│   ├── sdk/                    # SDK for UI integration
+│   └── deployment/             # Contract deployment
+└── docs/                       # Documentation
 ```
 
 ## 🚀 Quick Start
-1. Clone repository with submodules: `git clone --recursive <repo-url>`
-2. Install dependencies: `npm run install:all`
-3. Start development: `npm run dev`
-4. Run tests: `npm run test:all`
+1. Setup: `cp .env.example .env` (add your private key)
+2. Install: `npm install`
+3. Build: `npm run build`
+4. Deploy: `npm run deploy`
 
-## 🔄 AI-DLC Workflow
-Each commit triggers AI agents for code review, testing, and deployment coordination.
+## 🎯 Core Functions
+- `mint_tank()` - Free tank NFT
+- `mint_gun(payment)` - 100 TANK for random gun
+- `list_tank/gun(price)` - List on marketplace
+- `buy_tank/gun(payment)` - Purchase NFT
+
+## 📦 SDK Integration
+Copy `scripts/sdk/` to your UI project for blockchain integration.
