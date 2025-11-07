@@ -1,0 +1,8 @@
+{
+  "network": "testnet",
+  "packageId": "0x4d4dd10fd45f233106f261534e809bc4e2bebdb34d0f40978b79262bd8d1d997",
+  "deployer": "0xfedd3f138678c752d1b28a1b9abe90e2a1dda3a0a8320165e90ba1f59c9f8de9",
+  "timestamp": "2025-11-07T18:03:56.678Z",
+  "transactionDigest": "AVrh4pgbPATASXJ8DvuZ73ipe6V3NxHmJC2mtz5Qtr2Y",
+  "explorerUrl": "https://suiexplorer.com/txblock/AVrh4pgbPATASXJ8DvuZ73ipe6V3NxHmJC2mtz5Qtr2Y?network=testnet"
+}

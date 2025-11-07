@@ -3,35 +3,21 @@
   "version": "1.0.0",
   "description": "AI-Driven Web3 Tank Battle Game on Sui",
   "scripts": {
-    "install:all": "npm install && cd frontend && npm install && cd ../move_contracts && sui move build",
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:oracle\"",
-    "dev:frontend": "cd frontend && npm run dev",
-    "dev:oracle": "ts-node scripts/oracle/result-submitter.ts",
-    "build:all": "npm run build:frontend && npm run build:contracts",
-    "build:frontend": "cd frontend && npm run build",
-    "build:contracts": "cd move_contracts && sui move build",
-    "test:all": "npm run test:frontend && npm run test:contracts",
-    "test:frontend": "cd frontend && npm test",
-    "test:contracts": "cd move_contracts && sui move test",
-    "deploy:testnet": "ts-node scripts/deployment/deploy-contracts.ts",
-    "start:oracle": "ts-node scripts/oracle/result-submitter.ts",
-    "ai:review": "node scripts/ai-review.js"
+    "build": "cd move_contracts && sui move build",
+    "test": "ts-node scripts/deployment/test-functions.ts",
+    "deploy": "node scripts/deployment/final-deploy.js",
+    "check": "node scripts/deployment/check-status.js",
+    "test-gun": "node scripts/deployment/test-gun.js",
+    "status": "sui client objects",
+    "balance": "sui client balance"
   },
   "dependencies": {
     "@mysten/sui.js": "^0.54.0",
-    "react-icons": "^5.5.0",
-    "react-router-dom": "^7.9.5",
-    "ws": "^8.14.0"
+    "dotenv": "^16.6.1"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "@types/ws": "^8.5.0",
-    "concurrently": "^8.2.2",
     "ts-node": "^10.9.0",
     "typescript": "^5.0.0"
-  },
-  "workspaces": [
-    "frontend",
-    "move_contracts"
-  ]
+  }
 }
