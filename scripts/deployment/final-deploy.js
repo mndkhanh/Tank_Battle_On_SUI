@@ -92,7 +92,14 @@ async function finalDeploy() {
       JSON.stringify(info, null, 2)
     );
 
+    // Update .env with package ID
+    const envPath = path.join(__dirname, "../../.env");
+    let envContent = fs.readFileSync(envPath, "utf8");
+    envContent = envContent.replace(/PACKAGE_ID=.*/, `PACKAGE_ID=${packageId}`);
+    fs.writeFileSync(envPath, envContent);
+
     console.log("💾 Saved to deployment.json");
+    console.log("📝 Updated .env with PACKAGE_ID");
     console.log(`🔗 Explorer: ${info.explorerUrl}`);
 
     return info;
