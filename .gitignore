@@ -43,5 +43,6 @@ google-services.json
 GoogleService-Info.plist
 firebase-messaging-sw.js    # usually built dynamically
 .firestore/
+firestore-debug.log
 .firebase-functions-cache/
 .functions-sources/
