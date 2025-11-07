@@ -1,5 +1,3 @@
-import React from "react";
-import "@suiet/wallet-kit/style.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import SignUp from "./pages/auth/Signup";

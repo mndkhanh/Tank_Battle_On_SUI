@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Đặt vào layer components */
+@layer components {
+  .wallet-connect button {
+    @apply bg-tank-green text-white px-4 py-2 rounded transition-colors;
+  }
+  .wallet-connect button:hover {
+    @apply bg-green-600;
+  }
+}
+
+/* phần base của bạn (nếu cần) */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -9,8 +20,4 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.wallet-connect button {
-  @apply bg-tank-green text-white px-4 py-2 rounded hover:bg-green-600 transition-colors;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Phaser from "phaser";
-import { gameConfig } from "../../game/GameEngine";
+import { gameConfig } from "./GameEngine";
 
 const GameContainer: React.FC = () => {
   const gameRef = useRef<Phaser.Game | null>(null);
