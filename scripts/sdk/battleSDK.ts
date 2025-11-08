@@ -1,6 +1,6 @@
 import { SuiClient } from '@mysten/sui.js/client'
 import { TransactionBlock } from '@mysten/sui.js/transactions'
-import { PACKAGE_ID, ORACLE_CONFIG } from './constants'
+import { PACKAGE_ID } from './constants'
 
 export interface BattleAction {
   battleId: string
@@ -32,7 +32,7 @@ export class BattleSDK {
   // WebSocket Connection to Oracle
   connectToOracle(): Promise<WebSocket> {
     return new Promise((resolve, reject) => {
-      this.websocket = new WebSocket(ORACLE_CONFIG.WEBSOCKET_URL)
+      this.websocket = new WebSocket('ws://localhost:8080')
       
       this.websocket.onopen = () => {
         console.log('🔗 Connected to Battle Oracle')
@@ -143,8 +143,6 @@ export class BattleSDK {
 
   // Validation Helpers
   validateAction(action: BattleAction): boolean {
-    const rules = ORACLE_CONFIG.VALIDATION_RULES
-    
     // Basic client-side validation
     if (action.actionType < 0 || action.actionType > 2) return false
     if (action.positionX < 0 || action.positionY < 0) return false
