@@ -1,5 +1,5 @@
 import { SuiClient, getFullnodeUrl } from '@mysten/sui.js/client'
-import { NETWORK } from './constants'
+import { CURRENT_NETWORK } from './constants'
 
 // Singleton Sui Client
 let suiClientInstance: SuiClient | null = null
@@ -7,7 +7,7 @@ let suiClientInstance: SuiClient | null = null
 export function getSuiClient(): SuiClient {
   if (!suiClientInstance) {
     suiClientInstance = new SuiClient({
-      url: getFullnodeUrl(NETWORK as any)
+      url: getFullnodeUrl(CURRENT_NETWORK as any)
     })
   }
   return suiClientInstance
@@ -54,7 +54,7 @@ export async function getGasPrice(): Promise<number> {
   
   try {
     const gasPrice = await client.getReferenceGasPrice()
-    return parseInt(gasPrice)
+    return parseInt(gasPrice.toString())
   } catch (error) {
     console.warn('Failed to get gas price, using default')
     return 1000 // Default gas price
